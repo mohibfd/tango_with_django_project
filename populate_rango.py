@@ -24,7 +24,7 @@ def populate():
              'views': 50},
             {'title':'Django Rocks',
              'url':'http://www.djangorocks.com/',
-             'views': 23},
+             'views': 25},
             {'title':'How to Tango with Django',
              'url':'http://www.tangowithdjango.com/',
              'views': 70}]
@@ -35,7 +35,7 @@ def populate():
          'views': 20},
         {'title':'Flask',
          'url':'http://flask.pocoo.org',
-         'views': 50}]
+         'views': 58}]
          
     cats = {'Python': {'pages': python_pages, 'views': 128, 'likes': 64},
             'Django': {'pages': django_pages, 'views': 64, 'likes': 32},
