@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 
-{%load staticfiles %} <!-- New line-->
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+    Homepage
+{% endblock %}
 
-<html>
-
-    <head>
-        <title>Rango</title>
-    </head>
-
-    <body>
-        <h1>Rango says...</h1>
-        <div>
-            hey there partner! <br />
-            <strong>{{ boldmessage }}</strong><br />
-        </div>
-        <h2>Most Liked Categories</h2>
+{% block body_block %}
+    <h1>Rango says...</h1>
+    <div>
+        hey there partner! <br />
+        <strong>{{ boldmessage }}</strong><br />
+    </div>
+    <h2>Most Liked Categories</h2>
         <div>
         {% if categories %}
             <ul>
             {% for category in categories %}
                 <li>
-                    <a href="/rango/category/{{ category.slug }}/">{{ category.name }}</a>
+                    <a href="/rango/category/{{ category.slug }}/"> {{ category.name }}</a>
                 </li>
             {% endfor %}
             </ul>
@@ -41,14 +39,10 @@
             {% else %}
                 <strong>There are no pages present.</strong>
              {% endif %}
-             </div>  
-         
-         <div>
-            <a href="/rango/add_category/">Add a New Category</a><br />  
-            <a href="/rango/about/">About</a><br />
-            <img src="{% static 'images/rango.jpg' %}"
-                 alt="Picture of Rango" /> <!-- New line -->
-        </div>
-    </body>
-
-</html>
+             </div>
+             <div>
+                <img src="{% static 'images/rango.jpg' %}"
+                     alt="Picture of Rango" /> 
+            </div>
+      
+{% endblock %}       
