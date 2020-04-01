@@ -9,6 +9,9 @@ from django.urls import reverse
 from rango.forms import UserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from rango.bing_search import run_query
+from django.views import View
+
 
 def index(request):
 	category_list = Category.objects.order_by('-likes')[:5]
@@ -110,3 +113,29 @@ def visitor_cookie_handler(request):
 	else:
 		request.session['last_visit'] = last_visit_cookie
 	request.session['visits'] = visits
+
+def search(request):
+	result_list = []
+
+	if request.method == 'POST':
+		query = request.POST['query'].strip()
+		if query:
+			result_list = run_query(query)
+	
+	return render(request, 'rango/search.html', {'result_list': result_list})
+
+class LikeCategoryView(View):
+    def get(self, request):
+        category_id = request.GET['category_id']
+
+        try:
+            category = Category.objects.get(id=int(category_id))
+        except Category.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+        
+        category.likes = category.likes + 1
+        category.save()
+
+        return HttpResponse(category.likes)
